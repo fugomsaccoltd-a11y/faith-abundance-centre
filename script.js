@@ -1,47 +1,33 @@
 // Faith Abundance Centre - Website Interactions
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Header scroll effect
   const header = document.querySelector('.header');
+  const toggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('mainNav');
+
+  // Header scroll effect
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
+    if (window.scrollY > 30) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
     }
   });
 
-  // Mobile menu toggle
-  const toggle = document.querySelector('.menu-toggle');
-  const nav = document.querySelector('.nav');
-  
+  // Mobile menu
   if (toggle && nav) {
     toggle.addEventListener('click', () => {
-      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
-      if (nav.style.display === 'flex') {
-        nav.style.position = 'absolute';
-        nav.style.top = '80px';
-        nav.style.left = '0';
-        nav.style.right = '0';
-        nav.style.background = 'white';
-        nav.style.flexDirection = 'column';
-        nav.style.padding = '24px';
-        nav.style.gap = '16px';
-        nav.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
-      }
+      nav.classList.toggle('open');
     });
 
-    // Close menu on link click
     nav.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
-        if (window.innerWidth <= 900) {
-          nav.style.display = 'none';
-        }
+        nav.classList.remove('open');
       });
     });
   }
 
-  // Smooth reveal on scroll (simple)
+  // Smooth reveal
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -49,12 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
         entry.target.style.transform = 'translateY(0)';
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.12 });
 
-  document.querySelectorAll('.about-card, .gathering-card, .vision-block, .leader-content').forEach(el => {
+  document.querySelectorAll('.about-card, .gathering-card, .vision-block, .leader-content, .image-band-grid').forEach(el => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.65s ease, transform 0.65s ease';
     observer.observe(el);
   });
 });
